@@ -1,0 +1,22 @@
+workflows:
+  android-workflow:
+    name: Build Android APK
+    max_build_duration: 60
+    environment:
+      vars:
+        PACKAGE_NAME: "com.safecircle.app"
+      android:
+        java: 17
+    scripts:
+      - name: Install dependencies
+        script: |
+          ./gradlew dependencies
+      - name: Build APK
+        script: |
+          ./gradlew assembleDebug
+    artifacts:
+      - app/build/outputs/**/*.apk
+    publishing:
+      email:
+        recipients:
+          - your-email@example.com
